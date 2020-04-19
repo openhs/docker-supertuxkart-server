@@ -50,5 +50,7 @@ COPY --from=builder /usr/local /usr/local
 
 RUN useradd --shell /bin/false --create-home stk
 
+EXPOSE 2759/udp
+
 USER stk
 ENTRYPOINT ["/usr/local/bin/supertuxkart"]
