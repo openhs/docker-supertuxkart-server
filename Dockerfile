@@ -12,7 +12,7 @@ FROM debian:10 AS base
 
 
 MAINTAINER openhs
-LABEL version = "0.0.0" \
+LABEL version = "0.0.1" \
       description = "SuperTuxKart server"
 
 
@@ -20,7 +20,7 @@ LABEL version = "0.0.0" \
 RUN apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    zlib1g openssl libcurl4 procps
+    zlib1g openssl libcurl4 libenet7 procps
 
 RUN apt-get clean
 
@@ -40,7 +40,7 @@ RUN svn co https://svn.code.sf.net/p/supertuxkart/code/stk-assets stk-assets
 RUN cd stk-code && \
     mkdir build && \
     cd build && \
-    cmake .. -DSERVER_ONLY=ON && \
+    cmake .. -DSERVER_ONLY=ON -DUSE_SYSTEM_ENET=ON && \
     make -j$(nproc) && \
     make install
 
